@@ -145,7 +145,14 @@ jobs:
 
             echo "caches cleanup done!"
           fi
-
+        sed -i '$a src-git modem https://github.com/kiddin9/kwrt-packages.git' feeds.conf.default
+        ./scripts/feeds update -a && ./scripts/feeds install -a
+          rm -rf /databuild/duy/immortalwrt/feeds/packages/net/quectel-cm
+          rm -rf /databuild/duy/immortalwrt/package/feeds/packages/quectel-cm
+          rm -rf /databuild/duy/immortalwrt/feeds/packages/kernel/fibocom-qmi-wwan/
+          rm -rf /databuild/duy/immortalwrt/feeds/packages/kernel/quectel-qmi-wwan/
+          rm -rf feeds/packages/lang/golang
+          git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
       - name: Update Feeds
         run: |
           cd ./wrt/
