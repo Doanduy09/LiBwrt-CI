@@ -44,6 +44,16 @@ if [[ $WRT_REPO != *"immortalwrt"* ]]; then
 	UPDATE_PACKAGE "qmi-wwan" "immortalwrt/wwan-packages" "master" "pkg"
 fi
 
+sed -i '$a src-git modem https://github.com/kiddin9/kwrt-packages.git' feeds.conf.default
+./scripts/feeds update -a && ./scripts/feeds install -a
+rm -rf /databuild/duy/immortalwrt/feeds/packages/net/quectel-cm
+rm -rf /databuild/duy/immortalwrt/package/feeds/packages/quectel-cm
+rm -rf /databuild/duy/immortalwrt/feeds/packages/kernel/fibocom-qmi-wwan/
+rm -rf /databuild/duy/immortalwrt/feeds/packages/kernel/quectel-qmi-wwan/
+rm -rf feeds/packages/lang/golang
+git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
+./scripts/feeds update -a && ./scripts/feeds install -a
+
 #更新软件包版本
 UPDATE_VERSION() {
 	local PKG_NAME=$1
